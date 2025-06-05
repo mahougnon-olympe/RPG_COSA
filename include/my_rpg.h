@@ -24,5 +24,15 @@
     #include <stddef.h>
     #include <string.h>
 
+struct epi {
+    sfTexture *epit;
+    sfSprite *epi;
+    sfVector2f e_pos;
+    sfVector2f scale;
+    sfVector2f org;
+    sfClock *clock;
+    sfTime time;
+    float second;
+};
 int window(void);
 #endif /* MY_RPG_H */
