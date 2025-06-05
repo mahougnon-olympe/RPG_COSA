@@ -15,14 +15,17 @@ static void handle_event(sfRenderWindow *window, sfEvent event)
     }
 }
 
-struct epi *attribution1(sfVideoMode mode)
+struct epi *attribution1(void)
 {
     struct epi *picture = malloc(sizeof(struct epi));
 
     if (!picture)
         exit(84);
-    picture->e_pos.x = mode.width / 2;
-    picture->e_pos.y = mode.height / 2 - 50;
+    picture->m.width = 1900;
+    picture->m.height = 1080;
+    picture->m.bitsPerPixel = 32;
+    picture->e_pos.x = picture->m.width / 2;
+    picture->e_pos.y = picture->m.height / 2 - 50;
     picture->scale.x = 0.1;
     picture->scale.y = 0.1;
     picture->org.x = 785.5;
@@ -49,8 +52,8 @@ struct epi *clock_handle(struct epi *pi)
     pi->second = pi->time.microseconds / 1000000.0;
     if (pi->second > 0.01) {
         if (pi->scale.x < 1 && pi->scale.y < 1) {
-        pi->scale.x += 0.001;
-        pi->scale.y += 0.001;
+        pi->scale.x += 0.00175;
+        pi->scale.y += 0.00175;
         }
         sfClock_restart(pi->clock);
     }
@@ -69,13 +72,14 @@ int window(void)
 {
     sfRenderWindow *window;
     sfEvent event;
-    sfVideoMode mode = {1900, 1080, 32};
-    struct epi *pi = attribution1(mode);
+    struct epi *pi = attribution1();
+    sfMusic *e_mus = sfMusic_createFromFile("ressources/m/riser.ogg");
 
-    window = sfRenderWindow_create(mode, "My_RPG", sfResize | sfClose, NULL);
+    window = sfRenderWindow_create(pi->m, "My_RPG", sfResize | sfClose, NULL);
     if (!window)
         return 84;
     pi = attribution2(pi);
+    sfMusic_play(e_mus);
     while (sfRenderWindow_isOpen(window)) {
         handle_event(window, event);
         pi = clock_handle(pi);

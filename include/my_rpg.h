@@ -25,6 +25,7 @@
     #include <string.h>
 
 struct epi {
+    sfVideoMode m;
     sfTexture *epit;
     sfSprite *epi;
     sfVector2f e_pos;
