@@ -83,7 +83,7 @@ int window(void)
         return 84;
     pi = attribution2(pi);
     sfMusic_play(e_mus);
-    dlg->txt1 = create_text("/home/stella/RPG/RPG_COSA./ressources/dialogues/texte1.txt", "/home/stella/RPG/RPG_COSA./ressources/dialogues/Bienvenue.mp3", dlg);
+    dlg->txt1 = create_text("ressources/dialogues/texte1.txt", "ressources/dialogues/Bienvenue.mp3", dlg);
     while (sfRenderWindow_isOpen(window)) {
         handle_event(window, event);
         pi = clock_handle(pi);

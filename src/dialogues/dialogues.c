@@ -1,3 +1,4 @@
+
 /*
 ** EPITECH PROJECT, 2025
 ** dialogues
@@ -36,7 +37,7 @@ char *readfile(char *file)
 
 sfText *create_text(char *file, char *musicfile, struct dl *dlg)
 {
-    sfFont *font = sfFont_createFromFile("/home/stella/RPG/RPG_COSA./ressources/dialogues/Namaku.ttf");
+    sfFont *font = sfFont_createFromFile("ressources/dialogues/Namaku.ttf");
     sfMusic *music = sfMusic_createFromFile(musicfile);
     char *buffer = readfile(file);
 
@@ -53,7 +54,6 @@ sfText *create_text(char *file, char *musicfile, struct dl *dlg)
     sfMusic_play(music);
     return text;
 }
-
 float duree(sfClock *clock) {
     sfTime duree = sfClock_getElapsedTime(clock);
     return sfTime_asSeconds(duree);
