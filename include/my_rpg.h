@@ -35,5 +35,19 @@ struct epi {
     sfTime time;
     float second;
 };
+struct dl {
+    sfVideoMode t_m;
+    sfTexture *t_fond;
+    sfSprite *fond;
+    sfVector2f scale;
+    sfClock *clock;
+    sfTime time;
+    float duree;
+    float second;
+    sfText *txt1;
+};
+float duree(sfClock *clock);
+sfText *create_text(char *file, char *musicfile, struct dl *dlg);
+char *readfile(char *file);
 int window(void);
 #endif /* MY_RPG_H */

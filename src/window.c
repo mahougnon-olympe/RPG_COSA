@@ -60,12 +60,14 @@ struct epi *clock_handle(struct epi *pi)
     return pi;
 }
 
-void destroying(struct epi *pi, sfRenderWindow *window)
+void destroying(struct epi *pi, struct dl *dlg,sfRenderWindow *window)
 {
     sfRenderWindow_destroy(window);
     sfSprite_destroy(pi->epi);
     sfTexture_destroy(pi->epit);
+    sfText_destroy(dlg->txt1);
     free(pi);
+    free(dlg);
 }
 
 int window(void)
@@ -73,6 +75,7 @@ int window(void)
     sfRenderWindow *window;
     sfEvent event;
     struct epi *pi = attribution1();
+    struct dl *dlg = malloc(sizeof(struct dl));
     sfMusic *e_mus = sfMusic_createFromFile("ressources/m/riser.ogg");
 
     window = sfRenderWindow_create(pi->m, "My_RPG", sfResize | sfClose, NULL);
@@ -80,14 +83,18 @@ int window(void)
         return 84;
     pi = attribution2(pi);
     sfMusic_play(e_mus);
+    dlg->txt1 = create_text("/home/stella/RPG/RPG_COSA./ressources/dialogues/texte1.txt", "/home/stella/RPG/RPG_COSA./ressources/dialogues/Bienvenue.mp3", dlg);
     while (sfRenderWindow_isOpen(window)) {
         handle_event(window, event);
         pi = clock_handle(pi);
         sfSprite_setScale(pi->epi, pi->scale);
         sfRenderWindow_clear(window, sfColor_fromRGB(50, 50, 50));
-        sfRenderWindow_drawSprite(window, pi->epi, NULL);
+        if (pi->scale.x < 1 && pi->scale.y < 1) {
+           sfRenderWindow_drawSprite(window, pi->epi, NULL);
+           sfRenderWindow_drawText(window, dlg->txt1, NULL);
+        }
         sfRenderWindow_display(window);
     }
-    destroying(pi, window);
+    destroying(pi, dlg, window);
     return 0;
 }
