@@ -5,9 +5,7 @@
 ## for the compilation
 ##
 
-SRC =   src/main.c\
-	src/window.c\
-	src/dialogues/*.c\
+SRC =   src/*.c
 
 all :
 	gcc -o my_rpg $(SRC) -lcsfml-graphics -lcsfml-system \
@@ -26,3 +24,5 @@ fclean : clean
 	rm -rf my_rpg
 
 re : fclean all
+
+.PHONY	: all clean fclean re
