@@ -46,8 +46,8 @@ struct dl {
     float second;
     sfText *txt1;
 };
-float duree(sfClock *clock);
-sfText *create_text(char *file, char *musicfile, struct dl *dlg);
-char *readfile(char *file);
+
 int window(void);
+sfSprite *create_sprite(char *filepath);
+
 #endif /* MY_RPG_H */
