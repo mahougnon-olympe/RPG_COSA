@@ -48,6 +48,8 @@ struct dl {
 };
 
 int window(void);
-sfSprite *create_sprite(char *filepath);
+sfSprite *create_sprite1(char *filepath);
+sfSprite *create_sprite2(char *filepath);
+void animate_sprite(sfSprite *sprite, int frame_count);
 
 #endif /* MY_RPG_H */

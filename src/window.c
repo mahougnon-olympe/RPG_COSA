@@ -37,14 +37,19 @@ int window(void)
     sfRenderWindow *window;
     sfEvent event;
     sfVideoMode mode = {1920, 1080, 32};
-    sfSprite *back_image = create_sprite("media/tuto1.png");
-    sfSprite *perso = create_sprite("media/test.png");
+    sfSprite *back_image = create_sprite1("media/tuto1.png");
+    sfSprite *perso = create_sprite2("media/test.png");
+    int frame = 0;
+    int animation_framerate = 103;
 
     window = sfRenderWindow_create(mode, "My_RPG", sfResize | sfClose, NULL);
     if (!window)
         return 84;
     while (sfRenderWindow_isOpen(window)) {
         display(window, back_image, event, perso);
+        if (frame == 0)
+            animate_sprite(perso, 8);
+        frame = (frame + 1) % animation_framerate;
     }
     destroy(window, back_image, perso);
     return 0;
