@@ -8,6 +8,7 @@
 SRC =   src/main.c\
 	src/window.c\
 	src/dialogues/*.c\
+	src/Inventaire/*.c\
 
 all :
 	gcc -o my_rpg $(SRC) -lcsfml-graphics -lcsfml-system \
