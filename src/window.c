@@ -76,11 +76,13 @@ void destroying(struct epi *pi, struct dl *dlg,sfRenderWindow *window)
 
 int window(void)
 {
+    int i = 1;
     sfRenderWindow *window;
     sfEvent event;
     struct epi *pi = attribution1();
     struct dl *dlg = malloc(sizeof(struct dl));
     sfMusic *e_mus = sfMusic_createFromFile("ressources/m/riser.ogg");
+    sfBool music_played = sfFalse;
 
     window = sfRenderWindow_create(pi->m, "My_RPG", sfResize | sfClose, NULL);
     if (!window)
@@ -88,7 +90,6 @@ int window(void)
     pi = attribution2(pi);
     sfMusic_play(e_mus);
     dlg->txt1 = create_text("ressources/dialogues/texte1.txt", dlg);
-    play_music("ressources/dialogues/Bienvenue.mp3");
     while (sfRenderWindow_isOpen(window)) {
         handle_event(window, event);
         pi = clock_handle(pi);
@@ -99,8 +100,14 @@ int window(void)
         }
         if (!(pi->scale.x < 1 && pi->scale.y < 1)) {
            sfRenderWindow_drawSprite(window, pi->bacgrd, NULL);
-           sfRenderWindow_drawText(window, dlg->txt1, NULL);
-           
+           sfRenderWindow_drawText(window, dlg->txt1, NULL);           
+        }
+        if (sfMusic_getStatus((const sfMusic *) e_mus) == sfStopped && i == 1)
+            music_played = sfTrue;
+        if (music_played == sfTrue) {
+            play_music("ressources/dialogues/Bienvenue.mp3");
+            music_played = sfFalse;
+            i = 0;
         }
         sfRenderWindow_display(window);
     }
