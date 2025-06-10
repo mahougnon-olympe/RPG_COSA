@@ -37,12 +37,16 @@ struct epi *attribution1(void)
 struct epi *attribution2(struct epi *pi)
 {
     pi->epit = sfTexture_createFromFile("ressources/epitech.png", NULL);
+    pi->t_bacgrd = sfTexture_createFromFile("ressources/COSAM.png", NULL);
     if (!pi->epit)
         exit(84);
     pi->epi = sfSprite_create();
+    pi->bacgrd = sfSprite_create();
     sfSprite_setTexture(pi->epi, pi->epit, sfTrue);
     sfSprite_setOrigin(pi->epi, pi->org);
     sfSprite_setPosition(pi->epi, pi->e_pos);
+    sfSprite_setTexture(pi->bacgrd, pi->t_bacgrd, sfTrue);
+    sfSprite_setScale(pi->bacgrd, (sfVector2f){3.8, 2.16});
     return pi;
 }
 
@@ -83,7 +87,8 @@ int window(void)
         return 84;
     pi = attribution2(pi);
     sfMusic_play(e_mus);
-    dlg->txt1 = create_text("ressources/dialogues/texte1.txt", "ressources/dialogues/Bienvenue.mp3", dlg);
+    dlg->txt1 = create_text("ressources/dialogues/texte1.txt", dlg);
+    play_music("ressources/dialogues/Bienvenue.mp3");
     while (sfRenderWindow_isOpen(window)) {
         handle_event(window, event);
         pi = clock_handle(pi);
@@ -91,7 +96,11 @@ int window(void)
         sfRenderWindow_clear(window, sfColor_fromRGB(50, 50, 50));
         if (pi->scale.x < 1 && pi->scale.y < 1) {
            sfRenderWindow_drawSprite(window, pi->epi, NULL);
+        }
+        if (!(pi->scale.x < 1 && pi->scale.y < 1)) {
+           sfRenderWindow_drawSprite(window, pi->bacgrd, NULL);
            sfRenderWindow_drawText(window, dlg->txt1, NULL);
+           
         }
         sfRenderWindow_display(window);
     }

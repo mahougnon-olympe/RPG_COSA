@@ -35,13 +35,12 @@ char *readfile(char *file)
     return content;
 }
 
-sfText *create_text(char *file, char *musicfile, struct dl *dlg)
+sfText *create_text(char *file, struct dl *dlg)
 {
     sfFont *font = sfFont_createFromFile("ressources/dialogues/Namaku.ttf");
-    sfMusic *music = sfMusic_createFromFile(musicfile);
     char *buffer = readfile(file);
 
-    if (!font || !music)
+    if (!font)
         return NULL;
     dlg->clock = sfClock_create();
     sfText *text = sfText_create();
@@ -49,11 +48,20 @@ sfText *create_text(char *file, char *musicfile, struct dl *dlg)
     sfText_setCharacterSize(text, 50);
     sfText_setFillColor(text, sfWhite);
     sfText_setString(text, buffer);
-    sfVector2f position = {500, 850};
+    sfVector2f position = {500, 950};
     sfText_setPosition(text, position);
-    sfMusic_play(music);
     return text;
 }
+
+void play_music(char *musicfile)
+{
+    sfMusic *music = sfMusic_createFromFile(musicfile);
+
+    if (!music)
+        return;
+    sfMusic_play(music);
+}
+
 float duree(sfClock *clock) {
     sfTime duree = sfClock_getElapsedTime(clock);
     return sfTime_asSeconds(duree);
