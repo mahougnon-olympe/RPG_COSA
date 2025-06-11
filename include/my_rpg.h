@@ -15,6 +15,11 @@
     #include <SFML/System/Types.h>
     #include <SFML/System/Time.h>
     #include <SFML/Graphics.h>
+    #include <SFML/Window/Mouse.h>
+    #include <SFML/Window/Event.h>
+    #include <SFML/Window/Window.h>
+    #include <SFML/Window/Context.h>
+    #include <SFML/Window.h>
     #include <SFML/Audio.h>
     #include <sys/stat.h>
     #include <unistd.h>
@@ -28,8 +33,6 @@ struct epi {
     sfVideoMode m;
     sfTexture *epit;
     sfSprite *epi;
-    sfTexture *t_bacgrd;
-    sfSprite *bacgrd;
     sfVector2f e_pos;
     sfVector2f scale;
     sfVector2f org;
@@ -37,20 +40,35 @@ struct epi {
     sfTime time;
     float second;
 };
-struct dl {
-    sfVideoMode t_m;
-    sfTexture *t_fond;
-    sfSprite *fond;
-    sfVector2f scale;
-    sfClock *clock;
-    sfTime time;
-    float duree;
-    float second;
-    sfText *txt1;
-};
-void play_music(char *musicfile);
-float duree(sfClock *clock);
-sfText *create_text(char *file, struct dl *dlg);
-char *readfile(char *file);
-int window(void);
+
+typedef struct menu {
+    sfTexture *pic;
+    sfSprite *picture;
+    sfVector2f sc;
+    sfTexture *btn;
+    sfSprite *button;
+    sfVector2f bt_sc;
+    sfVector2f bt_pos;
+    sfVector2i ms_pos;
+    sfTexture *mr;
+    sfSprite *more;
+    sfVector2f mr_sc;
+    sfVector2f mr_pos;
+    sfTexture *pm;
+    sfSprite *pmore;
+    sfVector2f pm_sc;
+    sfTexture *sr;
+    sfSprite *score;
+    sfVector2f sr_sc;
+    sfVector2f sr_pos;
+} menu_t;
+
+menu_t *init(void);
+int the_window(void);
+void handle_event(sfRenderWindow *window, sfEvent event);
+struct epi *attribution1(void);
+struct epi *attribution2(struct epi *pi);
+struct epi *clock_handle(struct epi *pi);
+void destroying(struct epi *pi, sfRenderWindow *window);
+void next(menu_t *mn, sfRenderWindow* window, sfEvent event, struct epi *pi);
 #endif /* MY_RPG_H */

@@ -7,8 +7,9 @@
 
 #include "../include/my_rpg.h"
 
-int main(void)
+/*int main(void)
 {
-    window();
+    the_window();
     return 0;
 }
+*/
